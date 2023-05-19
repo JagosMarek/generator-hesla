@@ -8,7 +8,7 @@ public class UI {
     private Generator generator;
     private Scanner sc = new Scanner(System.in);
     private int passwordLength;
-    private int charactersUsed;
+    private String charactersUsed;
 
     public UI() {
         generator = new Generator();
@@ -36,22 +36,18 @@ public class UI {
         }
     }
 
-    private int setCharactersUsed() {
-        System.out.println("Which characters you want to use?: | 1 = ABC | 2 = abc | 3 = 123 | 4 = #$&");
-        System.out.println("Enter integer: (1 - 4)");
+    private String setCharactersUsed() {
+        System.out.println("Which characters you want to use?: | 1 = ABC | 2 = abc | 3 = 123 | 4 = #$& | 5 = all");
+        System.out.println("Enter integer: (1 - 5) Like 123 or 23 or 2 or 324... then hit enter");
         while (true) {
-            try {
-                int input = Integer.parseInt(sc.nextLine().trim());
-                if(input >= 1 && input <= 4){
+                String input = sc.nextLine().trim();
+                if(input.matches("[1-5]+")){
                     return charactersUsed = input;
                 } else {
-                    System.out.println("Incorrect number, please re-enter.");
+                    System.out.println("Incorrect entry, please re-enter.");
                 }
-            } catch (Exception ex) {
-                System.out.println("Incorrect entry, please re-enter.");
             }
         }
-    }
 
     public void addPassword() {
         System.out.println();
