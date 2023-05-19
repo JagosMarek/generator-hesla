@@ -8,6 +8,7 @@ public class UI {
     private Generator generator;
     private Scanner sc = new Scanner(System.in);
     private int passwordLength;
+    private int charactersUsed;
 
     public UI() {
         generator = new Generator();
@@ -19,7 +20,7 @@ public class UI {
         System.out.println("You can create a new random password");
     }
 
-    private int parseInt() {
+    private int setPasswordLength() {
         System.out.println("Enter integer: (1 - 50)");
         while (true) {
             try {
@@ -35,21 +36,40 @@ public class UI {
         }
     }
 
+    private int setCharactersUsed() {
+        System.out.println("Which characters you want to use?: | 1 = ABC | 2 = abc | 3 = 123 | 4 = #$&");
+        System.out.println("Enter integer: (1 - 4)");
+        while (true) {
+            try {
+                int input = Integer.parseInt(sc.nextLine().trim());
+                if(input >= 1 && input <= 4){
+                    return charactersUsed = input;
+                } else {
+                    System.out.println("Incorrect number, please re-enter.");
+                }
+            } catch (Exception ex) {
+                System.out.println("Incorrect entry, please re-enter.");
+            }
+        }
+    }
+
     public void addPassword() {
         System.out.println();
         System.out.println("==============================");
         System.out.println("Create a new random password.");
         System.out.println("Choose a password length: ");
-        parseInt();
+        setPasswordLength();
+        System.out.println("Choose a characters you want to use: ");
+        setCharactersUsed();
         System.out.println();
         System.out.println("A new password was created.");
-        generator.addPassword(passwordLength);
-        passwordStrength(passwordLength);
+        generator.addPassword(passwordLength, charactersUsed);
+        getPasswordStrength(passwordLength);
         System.out.println("==============================");
         System.out.println();
     }
 
-    public void passwordStrength(int passwordLength){
+    private void getPasswordStrength(int passwordLength){
         if(passwordLength >= 1 && passwordLength <= 4){
             System.out.println("Password strength: Very Weak");
         } else if(passwordLength >= 5 && passwordLength <= 7){
@@ -63,7 +83,6 @@ public class UI {
         }
     }
 
-
     public void printAllPasswords() {
         ArrayList<Password> passwords = generator.findAllPasswords();
         System.out.println("All passwords are: \n");
@@ -74,7 +93,7 @@ public class UI {
 
     public void findPasswords() {
         System.out.println("I can find all passwords of the same length");
-        parseInt();
+        setPasswordLength();
         ArrayList<Password> passwords = generator.findPassword(passwordLength);
         if (passwords.size() < 1) {
             System.out.println("No passwords found");
@@ -108,7 +127,7 @@ public class UI {
 
     public void deletePassword() {
         System.out.println("Enter the length of the password. Passwords with this length will be deleted");
-        parseInt();
+        setPasswordLength();
         System.out.println("Do you want to delete password with this length? " + passwordLength + " [Yes/No]");
         String choice = "";
         int delete = 0;

@@ -18,14 +18,14 @@ public class Generator {
         passwords = new ArrayList<>();
     }
 
-    public void addPassword(int passwordLength){
+    public void addPassword(int passwordLength, int characterUsed){
         password = "";
-        password = generatePassword(passwordLength);
+        password = generatePassword(passwordLength, characterUsed);
         passwords.add(new Password(password, passwordLength));
         System.out.println(password);
     }
 
-    public String generatePassword(int passwordLength){
+    public String generatePassword(int passwordLength, int characterUsed){
         String allCharacters = largeCharacters + smallCharacters + characters + numbers;
         for(int i = 0; i < passwordLength; i++){
             password += allCharacters.charAt(randomChar.nextInt(allCharacters.length()));
