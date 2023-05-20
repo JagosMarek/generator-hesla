@@ -1,0 +1,5 @@
+Lze přidat aby když si vložím vlastní slovo tak to upraví délku hesla s tím slovem
+např. délka hesla je 10 vložím slovo které má délku 5 tak at se mi ta délka rovná 10 a nee 15
+
+Lze přidat že když budu mazat hesla tak když nebudou žádné hesla tak at to napíše žádná hesla
+s délkou nejsou.
