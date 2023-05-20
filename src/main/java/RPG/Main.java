@@ -31,7 +31,7 @@ public class Main {
                     ui.getAllPasswords();
                     break;
                 case "3":
-                    ui.findPasswords();
+                    ui.findPassword();
                     break;
                 case "4":
                     ui.deletePassword();
@@ -43,7 +43,7 @@ public class Main {
                     //end
                     break;
                 default:
-                    System.out.println("Invalid selection, please re-enter.");
+                    System.out.println("Incorrect entry, please re-enter.");
                     break;
             }
         }

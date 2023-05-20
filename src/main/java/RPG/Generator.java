@@ -6,10 +6,10 @@ import java.util.Random;
 public class Generator {
 
     private ArrayList<Password> passwords;
-    private char[] largeCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
-    private char[] smallCharacters = "abcdefghijklmnopqrstuvwxyz".toCharArray();
-    private char[] characters = "?.-!/@€&#%*-+<>".toCharArray();
-    private char[] numbers = "1234567890".toCharArray();
+    private final char[] LARGE_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+    private final char[] SMALL_CHARACTERS = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+    private final char[] CHARCTERS = "?.-!/@€&#%*-+<>".toCharArray();
+    private final char[] NUMBERS = "1234567890".toCharArray();
     private Random randomChar;
     private String newPassword = "";
     private String customWord;
@@ -39,22 +39,22 @@ public class Generator {
         StringBuilder passwordBuilder = new StringBuilder();
         StringBuilder password = new StringBuilder();
         if (characterUsed.contains("1")) {
-            passwordBuilder.append(largeCharacters);
+            passwordBuilder.append(LARGE_CHARACTERS);
         }
         if (characterUsed.contains("2")) {
-            passwordBuilder.append(smallCharacters);
+            passwordBuilder.append(SMALL_CHARACTERS);
         }
         if (characterUsed.contains("3")) {
-            passwordBuilder.append(numbers);
+            passwordBuilder.append(NUMBERS);
         }
         if (characterUsed.contains("4")) {
-            passwordBuilder.append(characters);
+            passwordBuilder.append(CHARCTERS);
         }
         if (characterUsed.contains("5")) {
-            passwordBuilder.append(largeCharacters);
-            passwordBuilder.append(smallCharacters);
-            passwordBuilder.append(numbers);
-            passwordBuilder.append(characters);
+            passwordBuilder.append(LARGE_CHARACTERS);
+            passwordBuilder.append(SMALL_CHARACTERS);
+            passwordBuilder.append(NUMBERS);
+            passwordBuilder.append(CHARCTERS);
         }
         for (int i = 0; i < passwordLength; i++) {
             int index = randomChar.nextInt(passwordBuilder.length());
@@ -85,6 +85,14 @@ public class Generator {
         return foundPasswords;
     }
 
+    public ArrayList<Password> findAllPasswords() {
+        ArrayList<Password> foundPasswords = new ArrayList<>();
+        for (Password password : passwords) {
+            foundPasswords.add(password);
+        }
+        return foundPasswords;
+    }
+
     public void deleteALLPasswords(boolean deleteAll) {
         if (deleteAll) {
             passwords.clear();
@@ -97,16 +105,8 @@ public class Generator {
             passwords.remove(password);
         }
     }
-
-    public ArrayList<Password> findAllPasswords() {
-        ArrayList<Password> foundPasswords = new ArrayList<>();
-        for (Password password : passwords) {
-            foundPasswords.add(password);
-        }
-        return foundPasswords;
-    }
-
 }
+
 
 
 

@@ -10,10 +10,6 @@ public class Password {
         this.passwordLength = passwordLength;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public int getPasswordLength() {
         return passwordLength;
     }

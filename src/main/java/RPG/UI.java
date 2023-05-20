@@ -53,7 +53,7 @@ public class UI {
     }
 
     private Boolean setUserWord() {
-        System.out.println("Do you want to add your word? [Yes/No]: ");
+        System.out.println("Do you want to add your word? [Yes/No] Password length increases with word length.");
         String choice = "";
         String userWord = "";
         int add = 0;
@@ -92,7 +92,7 @@ public class UI {
                 generator.setWordEndOrFront("");
                 add++;
             } else {
-                System.out.println("Incorect entry, please re-enter.");
+                System.out.println("Incorrect entry, please re-enter.");
             }
         }
         return passwordLengthOk;
@@ -142,7 +142,7 @@ public class UI {
         }
     }
 
-    public void findPasswords() {
+    public void findPassword() {
         System.out.println("I can find all passwords of the same length");
         setPasswordLength();
         ArrayList<Password> passwords = generator.findPassword(passwordLength);
@@ -170,7 +170,7 @@ public class UI {
                 System.out.println("Okey passwords won't be deleted ");
                 delete++;
             } else {
-                System.out.println("Please try it again.");
+                System.out.println("Incorrect entry, please re-enter.");
             }
         }
     }
@@ -191,7 +191,7 @@ public class UI {
                 System.out.println("Okey passwords won't be deleted ");
                 delete++;
             } else {
-                System.out.println("Please try it again.");
+                System.out.println("Incorrect entry, please re-enter.");
             }
         }
     }
