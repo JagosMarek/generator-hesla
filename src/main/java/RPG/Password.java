@@ -5,7 +5,7 @@ public class Password {
     private String password;
     private int passwordLength;
 
-    public Password(String password, int passwordLength){
+    public Password(String password, int passwordLength) {
         this.password = password;
         this.passwordLength = passwordLength;
     }
@@ -19,7 +19,7 @@ public class Password {
     }
 
     @Override
-    public String toString(){
-        return String.format(password);
+    public String toString() {
+        return String.format("%s", password);
     }
 }

@@ -15,16 +15,16 @@ public class Generator {
     private String customWord;
     private String wordEndOrFront;
 
-    public Generator(){
+    public Generator() {
         randomChar = new Random();
         passwords = new ArrayList<>();
     }
 
-    public void addPassword(int passwordLength, String characterUsed){
+    public void addPassword(int passwordLength, String characterUsed) {
         wordEndOrFront = this.wordEndOrFront;
         customWord = this.customWord;
         newPassword = "";
-        if(wordEndOrFront.equals("b") || wordEndOrFront.equals("beginning")){
+        if (wordEndOrFront.equals("b") || wordEndOrFront.equals("beginning")) {
             newPassword = customWord + generatePassword(passwordLength, characterUsed);
             passwords.add(new Password(newPassword, passwordLength + customWord.length()));
             System.out.println(newPassword);
@@ -35,35 +35,35 @@ public class Generator {
         }
     }
 
-    public String generatePassword(int passwordLength, String characterUsed){
+    public String generatePassword(int passwordLength, String characterUsed) {
         StringBuilder passwordBuilder = new StringBuilder();
         StringBuilder password = new StringBuilder();
-        if(characterUsed.contains("1")){
+        if (characterUsed.contains("1")) {
             passwordBuilder.append(largeCharacters);
         }
-        if(characterUsed.contains("2")) {
+        if (characterUsed.contains("2")) {
             passwordBuilder.append(smallCharacters);
         }
-        if(characterUsed.contains("3")) {
+        if (characterUsed.contains("3")) {
             passwordBuilder.append(numbers);
         }
-        if(characterUsed.contains("4")) {
+        if (characterUsed.contains("4")) {
             passwordBuilder.append(characters);
         }
-        if(characterUsed.contains("5")) {
+        if (characterUsed.contains("5")) {
             passwordBuilder.append(largeCharacters);
             passwordBuilder.append(smallCharacters);
             passwordBuilder.append(numbers);
             passwordBuilder.append(characters);
         }
-        for(int i = 0; i < passwordLength; i++){
+        for (int i = 0; i < passwordLength; i++) {
             int index = randomChar.nextInt(passwordBuilder.length());
             password.append(passwordBuilder.charAt(index));
         }
         return password.toString();
     }
 
-    public void setWordEndOrFront(String wordEndOrFront){
+    public void setWordEndOrFront(String wordEndOrFront) {
         this.wordEndOrFront = wordEndOrFront;
     }
 
@@ -71,36 +71,36 @@ public class Generator {
         this.customWord = customWord;
     }
 
-    public String getNewPassword(){
+    public String getNewPassword() {
         return newPassword;
     }
 
-    public ArrayList<Password> findPassword(int passwordLength){
+    public ArrayList<Password> findPassword(int passwordLength) {
         ArrayList<Password> foundPasswords = new ArrayList<>();
-        for(Password password : passwords){
-            if(passwordLength == password.getPasswordLength()){
+        for (Password password : passwords) {
+            if (passwordLength == password.getPasswordLength()) {
                 foundPasswords.add(password);
             }
         }
         return foundPasswords;
     }
 
-    public void deleteALLPasswords(boolean deleteAll){
-        if(deleteAll){
+    public void deleteALLPasswords(boolean deleteAll) {
+        if (deleteAll) {
             passwords.clear();
         }
     }
 
-    public void deletePassword(int passwordLength){
+    public void deletePassword(int passwordLength) {
         ArrayList<Password> foundPasswords = findPassword(passwordLength);
-            for(Password password : foundPasswords){
-                passwords.remove(password);
-            }
+        for (Password password : foundPasswords) {
+            passwords.remove(password);
+        }
     }
 
-    public ArrayList<Password> findAllPasswords(){
+    public ArrayList<Password> findAllPasswords() {
         ArrayList<Password> foundPasswords = new ArrayList<>();
-        for(Password password : passwords){
+        for (Password password : passwords) {
             foundPasswords.add(password);
         }
         return foundPasswords;

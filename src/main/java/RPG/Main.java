@@ -9,7 +9,7 @@ public class Main {
         UI ui = new UI(sc);
         String choice = "";
         ui.welcomeScreen();
-        while (!choice.equals("6")){
+        while (!choice.equals("6")) {
             System.out.println();
             System.out.println("==============================");
             System.out.println("Select action: ");
@@ -23,7 +23,7 @@ public class Main {
             choice = sc.nextLine().trim();
             System.out.println();
 
-            switch (choice){
+            switch (choice) {
                 case "1":
                     ui.addPassword();
                     break;

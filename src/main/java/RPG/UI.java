@@ -1,8 +1,6 @@
 package RPG;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Scanner;
 
 public class UI {
@@ -11,6 +9,8 @@ public class UI {
     private int passwordLength;
     private String charactersUsed;
     private Scanner sc;
+    private final int MAX_PASSWORD_LENGTH = 50;
+    private boolean passwordLengthOk;
 
     public UI(Scanner sc) {
         generator = new Generator();
@@ -28,7 +28,7 @@ public class UI {
         while (true) {
             try {
                 int input = Integer.parseInt(sc.nextLine().trim());
-                if (input >= 1 && input <= 50) {
+                if (input >= 1 && input <= MAX_PASSWORD_LENGTH) {
                     return passwordLength = input;
                 } else {
                     System.out.println("Incorrect number, please re-enter.");
@@ -52,32 +52,37 @@ public class UI {
         }
     }
 
-    private void setUserWord() {
+    private Boolean setUserWord() {
         System.out.println("Do you want to add your word? [Yes/No]: ");
         String choice = "";
         String userWord = "";
         int add = 0;
         int addd = 0;
+        passwordLengthOk = true;
         while (add == 0) {
             choice = sc.nextLine().toLowerCase().trim();
             if (choice.equals("yes") || choice.equals("y")) {
                 System.out.println("Enter your word: ");
                 userWord = sc.nextLine().trim();
-                generator.setCustomWord(userWord);
-                add++;
-                while (addd == 0) {
-                    if (choice.equals("yes") || choice.equals("y")) {
-                        System.out.println("Do you want to put your word at the beginning or at the end" +
-                                " [beginning = b | end = e]");
-                        String beginnigOrEndChoice = sc.nextLine().toLowerCase().trim();
-                        if (beginnigOrEndChoice.equals("b") || beginnigOrEndChoice.equals("beginning")) {
-                            generator.setWordEndOrFront(beginnigOrEndChoice);
-                            addd++;
-                        } else if (beginnigOrEndChoice.equals("e") || beginnigOrEndChoice.equals("end")) {
-                            generator.setWordEndOrFront(beginnigOrEndChoice);
-                            addd++;
-                        } else {
-                            System.out.println("Incorrect entry, please re-enter.");
+                if (userWord.length() + passwordLength > MAX_PASSWORD_LENGTH) {
+                    return passwordLengthOk = false;
+                } else if (userWord.length() + passwordLength <= MAX_PASSWORD_LENGTH) {
+                    generator.setCustomWord(userWord);
+                    add++;
+                    while (addd == 0) {
+                        if (choice.equals("yes") || choice.equals("y")) {
+                            System.out.println("Do you want to put your word at the beginning or at the end" +
+                                    " [beginning = b | end = e]");
+                            String beginnigOrEndChoice = sc.nextLine().toLowerCase().trim();
+                            if (beginnigOrEndChoice.equals("b") || beginnigOrEndChoice.equals("beginning")) {
+                                generator.setWordEndOrFront(beginnigOrEndChoice);
+                                addd++;
+                            } else if (beginnigOrEndChoice.equals("e") || beginnigOrEndChoice.equals("end")) {
+                                generator.setWordEndOrFront(beginnigOrEndChoice);
+                                addd++;
+                            } else {
+                                System.out.println("Incorrect entry, please re-enter.");
+                            }
                         }
                     }
                 }
@@ -87,9 +92,10 @@ public class UI {
                 generator.setWordEndOrFront("");
                 add++;
             } else {
-                System.out.println("Incorrect entry, please re-enter.");
+                System.out.println("Incorect entry, please re-enter.");
             }
         }
+        return passwordLengthOk;
     }
 
     public void addPassword() {
@@ -99,9 +105,13 @@ public class UI {
         System.out.println("Choose a characters you want to use: ");
         setCharactersUsed();
         setUserWord();
-        System.out.println("A new password was created. Your new password is below: ");
-        generator.addPassword(passwordLength, charactersUsed);
-        getPasswordStrength();
+        if (passwordLengthOk) {
+            System.out.println("A new password was created. Your new password is below: ");
+            generator.addPassword(passwordLength, charactersUsed);
+            getPasswordStrength();
+        } else {
+            System.out.println("Sorry your password is over 50 characters long. Repeat the process.");
+        }
     }
 
     private void getPasswordStrength() {
@@ -127,7 +137,7 @@ public class UI {
         } else {
             System.out.println("All passwords sorted by length are: ");
             for (Password password : passwords) {
-                System.out.println(password + "   |with length: " + password.getPasswordLength());
+                System.out.printf("%s    |with length: %d\n", password.toString(), password.getPasswordLength());
             }
         }
     }
@@ -141,7 +151,7 @@ public class UI {
         } else {
             System.out.println("Found these passwords with length: " + passwordLength);
             for (Password password : passwords) {
-                System.out.println(password);
+                System.out.println(password.toString());
             }
         }
     }
